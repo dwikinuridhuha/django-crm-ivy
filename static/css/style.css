@@ -1,0 +1,23 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  background-color: #ebeff5;
+}
+
+#total-orders {
+  background-color: #4cb4c7;
+}
+
+#total-delivered {
+  background-color: #7abecc;
+}
+
+#total-pending {
+  background-color: #7cd1c0;
+}
+/*# sourceMappingURL=style.css.map */
