@@ -5,8 +5,15 @@
 
     <form action="" method="post">
         {% csrf_token %}
+        {{ formSet.management_form }}
 
-        {{ form.as_p }}
+        {% for from in formSet %}
+            <br>
+            {{ from }}
+            <hr>
+        {% endfor %}
+
+        
         <input type="submit" name="submit">
     </form>
 
