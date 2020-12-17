@@ -19,6 +19,12 @@ from .views import *
 
 urlpatterns = [
     path('', home, name='home'),
+
+    path('register/', registerPage, name="register"),
+    path('login/', loginPage, name="login"),
+    path('logout/', logoutUser, name="logout"),
+
+    path('user/', userPage, name="user_page"),
     path('products/', products, name='products'),
     path('custumer/<str:pk>', custumer, name='customer'),
     path('create_order/<str:pk>', createOrder, name='create_order'),

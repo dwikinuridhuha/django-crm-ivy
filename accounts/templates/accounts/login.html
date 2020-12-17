@@ -1,0 +1,17 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+
+    <form method="post">
+        {% csrf_token %}
+        <input name="username" type="text"  placeholder="masukan username">
+        <input name="password" type="password" placeholder="masukan password">
+        <input type="submit" class="btn btn-success">
+    </form>
+
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    <a href="{% url 'register' %}" class="btn btn-info">Register</a>
+{% endblock %}

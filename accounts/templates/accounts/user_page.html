@@ -2,12 +2,8 @@
 
 {% block content %}
     {% include 'accounts/status.html' %}
-
-    {% for message in messages %}
-        <br>
-        <p class="alert alert-info">{{ message }}</p>
-    {% endfor %}
-
+    <br>
+    <h2>User page</h2>
     <br>
     <div class="row">
         <div class="col-md-5">
@@ -25,13 +21,6 @@
                         <th>Customer</th>
                         <th>Phone</th>
                     </tr>
-                    {% for customer in customers %}
-                        <tr>
-                            <td><a href="{% url 'customer' customer.id %}" class="btn btn-info m-1">View</a></td>
-                            <td>{{ customer.name }}</td>
-                            <td>{{ customer.phone }}</td>
-                        </tr>
-                    {% endfor %}
                 </table>
             </div>
         </div>
@@ -53,16 +42,6 @@
                         <th>Update</th>
                         <th>Remove</th>
                     </tr>
-
-                    {% for order in orders %}
-                        <tr>
-                            <td>{{ order.product }}</td>
-                            <td>{{ order.date_created }}</td>
-                            <td>{{ order.status }}</td>
-                            <td><a href="{% url 'update_order' order.id %}" class="btn btn-info m-2">Update</a></td>
-                            <td><a href="{% url 'delete_order' order.id %}" class="btn btn-danger m-2">Delete</a></td>
-                        </tr>
-                    {% endfor %}
                 </table>
             </div>
         </div>
