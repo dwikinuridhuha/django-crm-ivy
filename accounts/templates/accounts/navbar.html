@@ -27,10 +27,10 @@
             <li class="nav-item">
                 <a href="{% url 'products' %}" class="nav-link">Product</a>
             </li>
-{##}
-{#            <li class="nav-item">#}
-{#                <a href="#" class="nav-link">Pricing</a>#}
-{#            </li>#}
+
+            <li class="nav-item">
+                <a href="{% url 'account' %}" class="nav-link">Settings</a>
+            </li>
         </ul>
     </div>
     {% if request.user.is_authenticated %}

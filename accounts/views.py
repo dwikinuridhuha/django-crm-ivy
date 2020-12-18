@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 
 from .models import *
-from .forms import OrderForm, CreateUserForm
+from .forms import OrderForm, CreateUserForm, CustomerForm
 from .filters import OrderFilter
 from .decorators import unauth_user, allow_users, admin_only
 
@@ -20,11 +20,8 @@ def registerPage(request):
     if(request.method == "POST"):
         form = CreateUserForm(request.POST)
         if(form.is_valid()):
-            user = form.save()
+            form.save()
             username = form.cleaned_data.get('username')
-
-            group = Group.objects.get(name="customer")
-            user.groups.add(group)
 
             messages.success(request, 'Account has been created ' + username)
             return redirect('login')
@@ -79,9 +76,39 @@ def home(request):
 
     return render(request, 'accounts/dasboard.html', context)
 
+@login_required(login_url='login')
+@allow_users(allow_roles=['admin', 'customer'])
 def userPage(request):
-    context = {}
+    orders = request.user.customer.order_set.all()
+
+    total_orders = orders.count()
+    delivered = orders.filter(status='Delivered').count()
+    pending = orders.filter(status='Pending').count()
+
+    context = {
+        'orders': orders,
+        'total_orders': total_orders,
+        'delivered': delivered,
+        'pending': pending,
+    }
     return render(request, 'accounts/user_page.html', context)
+
+@login_required(login_url='login')
+@allow_users(allow_roles=['admin', 'customer'])
+def account_settings(request):
+    user = request.user.customer
+    form = CustomerForm(instance=user)
+
+    if(request.method == "POST"):
+        form = CustomerForm(request.POST, request.FILES, instance=user)
+        if(form.is_valid()):
+            form.save()
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'accounts/account_setting.html', context)
 
 @login_required(login_url='login')
 def products(request):

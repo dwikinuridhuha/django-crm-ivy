@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.urls import path
 
+from django.contrib.auth import views as auth_views
+
 from .views import *
 
 urlpatterns = [
@@ -23,6 +25,7 @@ urlpatterns = [
     path('register/', registerPage, name="register"),
     path('login/', loginPage, name="login"),
     path('logout/', logoutUser, name="logout"),
+    path('account/', account_settings, name="account"),
 
     path('user/', userPage, name="user_page"),
     path('products/', products, name='products'),
@@ -30,4 +33,9 @@ urlpatterns = [
     path('create_order/<str:pk>', createOrder, name='create_order'),
     path('update_form/<str:pk>', updateOrder, name='update_order'),
     path('delete_order/<str:pk>', deleteOrder, name='delete_order'),
+
+    path('reset_password/', auth_views.PasswordResetView.as_view(), name="reset_password"),
+    path('reset_password_send/', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name="password_reset_config"),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
 ]

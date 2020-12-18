@@ -1,0 +1,28 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+    <br>
+    <div class="row">
+        <div class="col-md-3 text-center">
+            <a href="{% url 'home' %}" class="btn btn-warning">
+                Back to Home
+            </a>
+            <hr>
+            <h3>Account Settings</h3>
+            <hr>
+            <img style="border-radius: 50%; height: 180px; width: 180px; object-fit: cover"
+                 class="shadow shadow-lg"
+                 src="{{ request.user.customer.profile_pic.url }}">
+        </div>
+
+        <div class="col-md-8">
+            <div class="card card-body">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input class="btn btn-primary" type="submit" name="Update">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
